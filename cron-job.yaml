@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: k8s-job-cleaner
+  labels:
+    application: k8s-job-cleaner
+spec:
+  schedule: "47 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            application: k8s-job-cleaner
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: k8s-job-cleaner
+            image: gcr.io/freenome-build/k8s-job-cleaner:latest
+            resources:
+              limits:
+                cpu: 250m
+                memory: 100Mi
+              requests:
+                cpu: 50m
+                memory: 50Mi
