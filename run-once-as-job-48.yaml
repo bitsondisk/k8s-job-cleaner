@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: k8s-job-cleaner-48-
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: k8s-job-cleaner
+        command: ["/k8s-job-cleaner.py", "--success-seconds", "172800"]
+        image: gcr.io/freenome-build/k8s-job-cleaner:latest
